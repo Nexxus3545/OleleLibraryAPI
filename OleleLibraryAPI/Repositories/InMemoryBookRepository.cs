@@ -8,31 +8,14 @@ namespace OleleLibraryAPI.Repositories
         private readonly object _syncRoot = new();
         private int _nextId;
 
-        public InMemoryBookRepository()
+        public InMemoryBookRepository(IEnumerable<Book> seedBooks)
         {
-            _books = new List<Book>
-            {
-                new Book
-                {
-                    Id = 1,
-                    Title = "The Gentle Reminder",
-                    Author = "Bianca Sparacino",
-                    Genre = "Poetic Self help",
-                    Available = true,
-                    PublishedYear = 2021
-                },
-                new Book
-                {
-                    Id = 2,
-                    Title = "let Go and Let God",
-                    Author = "Albert E. Cliffe",
-                    Genre = "Spritual Self Help",
-                    Available = true,
-                    PublishedYear = 1954
-                }
-            };
+            _books = seedBooks
+                .Select(Clone)
+                .OrderBy(book => book.Id)
+                .ToList();
 
-            _nextId = 3;
+            _nextId = _books.Count == 0 ? 1 : _books.Max(book => book.Id) + 1;
         }
 
         public IReadOnlyList<Book> GetAll()
@@ -115,4 +98,3 @@ namespace OleleLibraryAPI.Repositories
         }
     }
 }
-

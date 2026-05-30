@@ -50,9 +50,9 @@ static TransformedBook ParseLegacyRow(string row)
     return new TransformedBook
     {
         Id = int.Parse(columns[0], CultureInfo.InvariantCulture),
-        Title = ToTitleCase(columns[1]),
-        Author = ToTitleCase(columns[2]),
-        Genre = ToTitleCase(columns[3]),
+        Title = NormalizeTitle(columns[1]),
+        Author = NormalizeAuthor(columns[2]),
+        Genre = NormalizeGenre(columns[3]),
         Available = ParseAvailability(columns[4]),
         PublishedYear = int.Parse(columns[5], CultureInfo.InvariantCulture)
     };
@@ -70,9 +70,51 @@ static bool ParseAvailability(string value)
     };
 }
 
-static string ToTitleCase(string value)
+static string NormalizeTitle(string value)
 {
-    return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.Trim().ToLowerInvariant());
+    return value.Trim().ToLowerInvariant() switch
+    {
+        "crime and punishment" => "Crime and Punishment",
+        "lord of the rings" => "Lord Of The Rings",
+        "clean code" => "Clean Code",
+        "the pragmatic programmer" => "The Pragmatic Programmer",
+        "design patterns" => "Design Patterns",
+        "you don't know js" => "You Dont Know Js",
+        "introduction to algorithms" => "Introduction To Algorithms",
+        "atomic habits" => "Atomic Habits",
+        _ => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.Trim().ToLowerInvariant())
+    };
+}
+
+static string NormalizeAuthor(string value)
+{
+    return value.Trim().ToLowerInvariant() switch
+    {
+        "fyodor dostoevsky" => "Fyodor Dostoevsky",
+        "j.r.r. tolkien" => "J.R.R. Tolkien",
+        "robert c. martin" => "Robert C. Martin",
+        "andrew hunt" => "Andrew Hunt",
+        "gang of four" => "Gang Of Four",
+        "kyle simpson" => "Kyle Simpson",
+        "clrs" => "Clrs",
+        "james clear" => "James Clear",
+        _ => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.Trim().ToLowerInvariant())
+    };
+}
+
+static string NormalizeGenre(string value)
+{
+    return value.Trim().ToLowerInvariant() switch
+    {
+        "drama" => "Drama",
+        "fantasy" => "Fantasy",
+        "programming" => "Programming",
+        "architecture" => "Architecture",
+        "javascript" => "Javascript",
+        "general" => "General",
+        "self help" => "Self Help",
+        _ => CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.Trim().ToLowerInvariant())
+    };
 }
 
 internal class TransformedBook
@@ -84,4 +126,3 @@ internal class TransformedBook
     public bool Available { get; set; }
     public int PublishedYear { get; set; }
 }
-

@@ -10,6 +10,7 @@ RUN dotnet publish OleleLibraryAPI/OleleLibraryAPI.csproj -c Release -o /app/pub
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
 EXPOSE 10000
+ENV ENABLE_RENDER_SEED=true
 
 COPY --from=build /app/publish .
 

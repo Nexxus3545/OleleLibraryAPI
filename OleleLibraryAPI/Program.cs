@@ -1,11 +1,16 @@
 using OleleLibraryAPI.Repositories;
+using OleleLibraryAPI.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
+var renderMode = string.Equals(
+    Environment.GetEnvironmentVariable("ENABLE_RENDER_SEED"),
+    "true",
+    StringComparison.OrdinalIgnoreCase);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IBookRepository, InMemoryBookRepository>();
+builder.Services.AddSingleton<IBookRepository>(_ => new InMemoryBookRepository(BookSeedCatalog.GetBooks(renderMode)));
 
 var app = builder.Build();
 
@@ -26,4 +31,3 @@ app.MapGet("/health", () => Results.Ok(new
 app.MapControllers();
 
 await app.RunAsync();
-
