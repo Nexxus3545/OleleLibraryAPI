@@ -51,7 +51,7 @@ internal static class BookSeedCatalog
             {
                 Id = 2,
                 Title = "Lord Of The Rings",
-                Author = "J.R.R. Tolkien",
+                Author = "J.R.R.Tolkien",
                 Genre = "Fantasy",
                 Available = true,
                 PublishedYear = 1954
@@ -69,7 +69,7 @@ internal static class BookSeedCatalog
             {
                 Id = 4,
                 Title = "The Pragmatic Programmer",
-                Author = "Andrew Hunt",
+                Author = "Adrew Hunt",
                 Genre = "Programming",
                 Available = true,
                 PublishedYear = 1999
@@ -77,7 +77,7 @@ internal static class BookSeedCatalog
             new()
             {
                 Id = 5,
-                Title = "Design Patterns",
+                Title = "Design Pattern",
                 Author = "Gang Of Four",
                 Genre = "Architecture",
                 Available = false,

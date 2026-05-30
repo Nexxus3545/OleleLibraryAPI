@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 COPY OleleLibraryAPI/OleleLibraryAPI.csproj OleleLibraryAPI/
@@ -7,7 +7,7 @@ RUN dotnet restore OleleLibraryAPI/OleleLibraryAPI.csproj
 COPY . .
 RUN dotnet publish OleleLibraryAPI/OleleLibraryAPI.csproj -c Release -o /app/publish /p:UseAppHost=false
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 EXPOSE 10000
 ENV ENABLE_RENDER_SEED=true
