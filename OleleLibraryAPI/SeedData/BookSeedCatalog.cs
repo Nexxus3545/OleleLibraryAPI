@@ -100,15 +100,6 @@ internal static class BookSeedCatalog
                 Genre = "General",
                 Available = true,
                 PublishedYear = 2009
-            },
-            new()
-            {
-                Id = 8,
-                Title = "Atomic Habits",
-                Author = "James Clear",
-                Genre = "Self Help",
-                Available = true,
-                PublishedYear = 2018
             }
         };
     }
